@@ -21,8 +21,8 @@ class LoginControllerTest extends TestCase
     public function testLoginSuccess()
     {
         $response = $this->post('/form', [
-            'username' => 'example_username',
-            'password' => 'example_password'
+            'username' => 'user1@example.comp',
+            'password' => 'example_password1'
         ]);
 
         $response->assertStatus(200);

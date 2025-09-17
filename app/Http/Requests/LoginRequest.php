@@ -18,6 +18,14 @@ class LoginRequest extends FormRequest
         // false harus login 
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'username' => strtolower($this->input('username'))
+        ]);
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,5 +37,12 @@ class LoginRequest extends FormRequest
             'username' => ['required', 'email', 'max:100'],
             'password' => ['required', Password::min(6)->letters()->numbers()->symbols()]
         ];
+    }
+
+    protected function passedValidation()
+    {
+        $this->merge([
+            'password' => bcrypt($this->input('password'))
+        ]);
     }
 }
